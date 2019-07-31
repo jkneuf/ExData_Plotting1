@@ -1,10 +1,9 @@
-library(readr)
+library(data.table)
 library(lubridate)
 
 # read in the data
-power <- read.table("household_power_consumption.txt", header = TRUE, sep = ";",
-                    stringsAsFactors=FALSE, quote = "\"'", na.strings = "?", 
-                    strip.white = TRUE)
+power <- data.table::fread(input = "household_power_consumption.txt"
+                           , na.strings="?")
 
 # convert the Date using lubridate
 power$Date <- dmy(power$Date)
@@ -44,3 +43,6 @@ plot(power$date_time, power$Global_reactive_power,
 dev.copy(png, file = "plot4.png", width=480, height=480, units="px", bg="white") 
 # Don't forget to close the PNG device!
 dev.off() 
+
+# change it so one graph shows up
+par(mfrow = c(1, 1))
