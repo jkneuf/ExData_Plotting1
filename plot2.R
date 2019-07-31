@@ -1,10 +1,9 @@
-library(readr)
+library(data.table)
 library(lubridate)
 
 # read in the data
-power <- read.table("household_power_consumption.txt", header = TRUE, sep = ";",
-                    stringsAsFactors=FALSE, quote = "\"'", na.strings = "?", 
-                    strip.white = TRUE)
+power <- data.table::fread(input = "household_power_consumption.txt"
+                           , na.strings="?")
 
 # convert the Date using lubridate
 power$Date <- dmy(power$Date)
